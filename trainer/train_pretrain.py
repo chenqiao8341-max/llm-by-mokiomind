@@ -35,25 +35,25 @@ def build_parser():
     parser.add_argument("--save_dir", type=str, default="../out")
     parser.add_argument("--save_weight", type=str, default="pretrain")
     parser.add_argument("--epochs", type=int, default=1)
-    parser.add_argument("--batch_size", type=int, default=8)
-    parser.add_argument("--learning_rate", type=float, default=3e-4)
+    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--learning_rate", type=float, default=5e-4)
     parser.add_argument(
         "--device",
         type=str,
         default="cuda:0" if torch.cuda.is_available() else "cpu",
     )
     parser.add_argument("--dtype", type=str, default="bfloat16")
-    parser.add_argument("--num_workers", type=int, default=1)
-    parser.add_argument("--accumulation_steps", type=int, default=4)
+    parser.add_argument("--num_workers", type=int, default=4)
+    parser.add_argument("--accumulation_steps", type=int, default=8)
     parser.add_argument("--grad_clip", type=float, default=1.0)
-    parser.add_argument("--log_interval", type=int, default=10)
-    parser.add_argument("--save_interval", type=int, default=200)
-    parser.add_argument("--hidden_size", type=int, default=512)
-    parser.add_argument("--num_hidden_layers", type=int, default=8)
-    parser.add_argument("--num_attention_heads", type=int, default=8)
-    parser.add_argument("--num_key_value_heads", type=int, default=2)
-    parser.add_argument("--max_seq_len", type=int, default=512)
-    parser.add_argument("--dropout", type=float, default=0.0)
+    parser.add_argument("--log_interval", type=int, default=20)
+    parser.add_argument("--save_interval", type=int, default=500)
+    parser.add_argument("--hidden_size", type=int, default=768)
+    parser.add_argument("--num_hidden_layers", type=int, default=12)
+    parser.add_argument("--num_attention_heads", type=int, default=12)
+    parser.add_argument("--num_key_value_heads", type=int, default=4)
+    parser.add_argument("--max_seq_len", type=int, default=1024)
+    parser.add_argument("--dropout", type=float, default=0.1)
     parser.add_argument("--vocab_size", type=int, default=6400)
     parser.add_argument(
         "--data_path",
