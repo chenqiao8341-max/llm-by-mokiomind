@@ -103,7 +103,10 @@ def train_epoch(
 
         scaler.scale(loss).backward()
 
-        if step % args.accumulation_steps == 0:
+        should_step = (
+            step % args.accumulation_steps == 0 or step == iters
+        )
+        if should_step:
             scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
             scaler.step(optimizer)
