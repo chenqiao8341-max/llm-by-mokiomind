@@ -70,6 +70,39 @@ torchrun --nproc_per_node=2 main.py \
 2 卡 × 每卡 16 × 梯度累积 8 = 256
 ```
 
+## 推理
+
+训练完成后，可以直接加载导出的 `.pth` 权重做推理。
+
+如果你的训练命令是默认结构参数，且输出保存在当前仓库的 `./out` 下，可以这样调用：
+
+```bash
+python infer.py \
+  --save_dir ./out \
+  --weight pretrain_2x4090 \
+  --prompt "请介绍一下 Transformer 的核心思想"
+```
+
+如果你训练时改过结构参数，推理时也要保持一致，例如：
+
+```bash
+python infer.py \
+  --save_dir ./out \
+  --weight pretrain_run1 \
+  --hidden_size 768 \
+  --num_hidden_layers 12 \
+  --num_attention_heads 12 \
+  --num_key_value_heads 4 \
+  --max_seq_len 1024 \
+  --prompt "你好"
+```
+
+注意：
+
+- `--weight` 填保存文件名前缀，不带 `_768.pth`
+- 推理结构必须和训练结构一致，否则权重尺寸对不上
+- 如果不传 `--prompt`，会进入交互模式
+
 ## 说明
 
 - 本地没有安装 `torch` 也没有可用显卡，因此这次修改只做了静态精简和语法检查。
